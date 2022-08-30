@@ -21,7 +21,11 @@ def pregunta_01():
     214
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+    suma = [int(fila[1]) for fila in archivo]
+    return sum(suma)
 
 
 def pregunta_02():
@@ -39,7 +43,16 @@ def pregunta_02():
     ]
 
     """
-    return
+    from collections import Counter
+
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+    letras = [fila[0] for fila in archivo]
+    cantidad = dict(Counter(letras))
+    final = sorted(cantidad.items())
+
+    return final
 
 
 def pregunta_03():
@@ -57,7 +70,17 @@ def pregunta_03():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+    letrasNumeros = [(fila[0], int(fila[1])) for fila in archivo]
+    letrasSuma = {fila[0]:0 for fila in archivo}
+    for i in letrasNumeros:
+        if i[0] in letrasSuma.keys():
+            letrasSuma[i[0]] += i[1]
+   
+    final = sorted(letrasSuma.items())
+    return final
 
 
 def pregunta_04():
