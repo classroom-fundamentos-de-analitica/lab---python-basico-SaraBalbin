@@ -265,10 +265,9 @@ def pregunta_08():
 
     x = []
     for j in numeros:
-        x.append((j, numeros[j]))
+        x.append((j, sorted(numeros[j])))
 
     return x
-
 
 def pregunta_09():
     """
