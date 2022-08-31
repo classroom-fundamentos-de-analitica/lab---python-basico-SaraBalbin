@@ -48,6 +48,7 @@ def pregunta_02():
     archivo = open('data.csv', 'r').readlines()
     archivo = [z.replace("\n", "") for z in archivo]
     archivo = [z.split("\t") for z in archivo]
+
     letras = [fila[0] for fila in archivo]
     cantidad = dict(Counter(letras))
     final = sorted(cantidad.items())
@@ -73,6 +74,7 @@ def pregunta_03():
     archivo = open('data.csv', 'r').readlines()
     archivo = [z.replace("\n", "") for z in archivo]
     archivo = [z.split("\t") for z in archivo]
+
     letrasNumeros = [(fila[0], int(fila[1])) for fila in archivo]
     letrasSuma = {fila[0]:0 for fila in archivo}
     for i in letrasNumeros:
@@ -105,8 +107,16 @@ def pregunta_04():
     ]
 
     """
-    return
+    from collections import Counter
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
 
+    fechas = [fila[2].split('-')[1] for fila in archivo]
+    fechas = dict(Counter(fechas))
+    final = sorted(fechas.items())
+
+    return final
 
 def pregunta_05():
     """
@@ -123,7 +133,22 @@ def pregunta_05():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+
+    letras = sorted({fila[0] for fila in archivo})
+    letraNumero = [(fila[0], int(fila[1])) for fila in archivo]
+
+    minmax = {letra: [] for letra in letras}
+    for i in letraNumero:
+        minmax[i[0]].append(i[1])
+    
+    x = []
+    for i in minmax:
+        x.append((i, max(minmax[i]), min(minmax[i])))
+
+    return x
 
 
 def pregunta_06():
@@ -148,8 +173,21 @@ def pregunta_06():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t")[4].split(",") for z in archivo]
+    letras = sorted({palabra[:3] for diccionario in archivo for palabra in diccionario})
+    letras = {letra: [] for letra in letras}
 
+    for i in archivo:
+        for elemento in i:
+            letras[elemento[:3]].append(int(elemento[4:]))
+
+    x = []
+    for i in letras:
+        x.append((i, min(letras[i]), max(letras[i])))
+
+    return x
 
 def pregunta_07():
     """
@@ -172,7 +210,23 @@ def pregunta_07():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+
+    columnas = [(fila[0], int(fila[1])) for fila in archivo]
+    numeros = sorted([fila[1] for fila in columnas])
+    numeros = {numero: [] for numero in numeros}
+
+    for i in columnas:
+        numeros[i[1]].append(i[0])
+
+    x = []
+    for j in numeros:
+        x.append((j, numeros[j]))
+
+    return x
+
 
 
 def pregunta_08():
@@ -197,7 +251,23 @@ def pregunta_08():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+
+    columnas = [(fila[0], int(fila[1])) for fila in archivo]
+    numeros = sorted([fila[1] for fila in columnas])
+    numeros = {numero: [] for numero in numeros}
+
+    for i in columnas:
+        if i[0] not in numeros[i[1]]:
+            numeros[i[1]].append(i[0])
+
+    x = []
+    for j in numeros:
+        x.append((j, numeros[j]))
+
+    return x
 
 
 def pregunta_09():
