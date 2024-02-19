@@ -21,7 +21,11 @@ def pregunta_01():
     214
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+    suma = [int(fila[1]) for fila in archivo]
+    return sum(suma)
 
 
 def pregunta_02():
@@ -39,7 +43,17 @@ def pregunta_02():
     ]
 
     """
-    return
+    from collections import Counter
+
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+
+    letras = [fila[0] for fila in archivo]
+    cantidad = dict(Counter(letras))
+    final = sorted(cantidad.items())
+
+    return final
 
 
 def pregunta_03():
@@ -57,7 +71,18 @@ def pregunta_03():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+
+    letrasNumeros = [(fila[0], int(fila[1])) for fila in archivo]
+    letrasSuma = {fila[0]:0 for fila in archivo}
+    for i in letrasNumeros:
+        if i[0] in letrasSuma.keys():
+            letrasSuma[i[0]] += i[1]
+   
+    final = sorted(letrasSuma.items())
+    return final
 
 
 def pregunta_04():
@@ -82,8 +107,16 @@ def pregunta_04():
     ]
 
     """
-    return
+    from collections import Counter
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
 
+    fechas = [fila[2].split('-')[1] for fila in archivo]
+    fechas = dict(Counter(fechas))
+    final = sorted(fechas.items())
+
+    return final
 
 def pregunta_05():
     """
@@ -100,7 +133,22 @@ def pregunta_05():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+
+    letras = sorted({fila[0] for fila in archivo})
+    letraNumero = [(fila[0], int(fila[1])) for fila in archivo]
+
+    minmax = {letra: [] for letra in letras}
+    for i in letraNumero:
+        minmax[i[0]].append(i[1])
+    
+    x = []
+    for i in minmax:
+        x.append((i, max(minmax[i]), min(minmax[i])))
+
+    return x
 
 
 def pregunta_06():
@@ -125,8 +173,21 @@ def pregunta_06():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t")[4].split(",") for z in archivo]
+    letras = sorted({palabra[:3] for diccionario in archivo for palabra in diccionario})
+    letras = {letra: [] for letra in letras}
 
+    for i in archivo:
+        for elemento in i:
+            letras[elemento[:3]].append(int(elemento[4:]))
+
+    x = []
+    for i in letras:
+        x.append((i, min(letras[i]), max(letras[i])))
+
+    return x
 
 def pregunta_07():
     """
@@ -149,7 +210,23 @@ def pregunta_07():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+
+    columnas = [(fila[0], int(fila[1])) for fila in archivo]
+    numeros = sorted([fila[1] for fila in columnas])
+    numeros = {numero: [] for numero in numeros}
+
+    for i in columnas:
+        numeros[i[1]].append(i[0])
+
+    x = []
+    for j in numeros:
+        x.append((j, numeros[j]))
+
+    return x
+
 
 
 def pregunta_08():
@@ -174,8 +251,23 @@ def pregunta_08():
     ]
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
 
+    columnas = [(fila[0], int(fila[1])) for fila in archivo]
+    numeros = sorted([fila[1] for fila in columnas])
+    numeros = {numero: [] for numero in numeros}
+
+    for i in columnas:
+        if i[0] not in numeros[i[1]]:
+            numeros[i[1]].append(i[0])
+
+    x = []
+    for j in numeros:
+        x.append((j, sorted(numeros[j])))
+
+    return x
 
 def pregunta_09():
     """
@@ -197,7 +289,14 @@ def pregunta_09():
     }
 
     """
-    return
+    from collections import Counter
+
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t")[4].split(",") for z in archivo]
+    letras = sorted(palabra[:3] for diccionario in archivo for palabra in diccionario)
+    letras = dict(Counter(letras))
+    return letras
 
 
 def pregunta_10():
@@ -216,9 +315,18 @@ def pregunta_10():
         ("E", 3, 3),
     ]
 
-
     """
-    return
+
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+    columnas = [[col[0], col[3].split(","), col[4].split(",") ] for col in archivo]
+
+    x = []
+    for elemento in columnas:
+        x.append((elemento[0], len(elemento[1]), len(elemento[2])))
+
+    return x
 
 
 def pregunta_11():
@@ -237,9 +345,20 @@ def pregunta_11():
         "g": 35,
     }
 
-
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+    letras = sorted({letra for col in archivo for letra in col[3].split(",")})
+    
+    final = {letra:0 for letra in letras}
+
+    for i in archivo:
+        l = i[3].split(",")
+        for elemento in l:
+            final[elemento] += int(i[1])
+    
+    return final
 
 
 def pregunta_12():
@@ -257,4 +376,22 @@ def pregunta_12():
     }
 
     """
-    return
+    archivo = open('data.csv', 'r').readlines()
+    archivo = [z.replace("\n", "") for z in archivo]
+    archivo = [z.split("\t") for z in archivo]
+
+    letras = sorted({fila[0] for fila in archivo})
+    col5 = [[col[0],col[4].split(",")] for col in archivo]
+
+    for fila in col5:
+        for elemento in range(len(fila[1])):
+            fila[1][elemento] = int(fila[1][elemento][4:])
+        fila[1] = sum(fila[1])
+    
+    dicc = {letra: 0 for letra in letras}
+
+    for elemento in col5:
+        dicc[elemento[0]] += elemento[1]
+
+    return dicc
+
